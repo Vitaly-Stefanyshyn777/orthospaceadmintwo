@@ -1,0 +1,62 @@
+import { NextRequest, NextResponse } from "next/server";
+import { BACKEND_URL } from "@/lib/config";
+
+// GET - отримати фото альбому (адмін) - проксуємо до backend
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ albumId: string }> }
+) {
+  const { albumId } = await params;
+  const { searchParams } = new URL(request.url);
+  const tag = searchParams.get("tag");
+
+  console.log(
+    `🔐 GET /api/v1/gallery/albums/${albumId}/photos - Отримання фото альбому з фільтром: ${
+      tag || "всі"
+    }`
+  );
+
+  try {
+    const authHeader = request.headers.get("authorization");
+    if (!authHeader) {
+      console.log("❌ GET /api/v1/gallery/albums/[albumId]/photos - No authorization header");
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Проксуємо запит до справжнього backend
+    let backendUrl = `${BACKEND_URL}/api/v1/gallery/albums/${albumId}/photos`;
+    if (tag) {
+      backendUrl += `?tag=${tag}`;
+    }
+    console.log("Проксування до:", backendUrl);
+
+    const response = await fetch(backendUrl, {
+      method: "GET",
+      headers: {
+        Authorization: authHeader,
+      },
+    });
+
+    const data = await response.json();
+
+    console.log(
+      `✅ GET /api/v1/gallery/albums/${albumId}/photos - Отримано відповідь від backend, статус: ${response.status}`
+    );
+
+    return NextResponse.json(data, {
+      status: response.status,
+      headers: {
+        "Access-Control-Allow-Origin": request.headers.get("origin") || "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      },
+    });
+  } catch (error) {
+    console.error(`❌ GET /api/v1/gallery/albums/${albumId}/photos - Помилка проксі:`, error);
+    return NextResponse.json(
+      { error: "Backend connection failed" },
+      { status: 500 }
+    );
+  }
+}
+

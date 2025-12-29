@@ -1,0 +1,352 @@
+.navContainer {
+  width: auto;
+  height: 60px;
+  border-radius: 25px;
+  background: var(--light-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.iconLeft {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconLeft img {
+  transform: rotate(180deg);
+  width: 20px;
+  height: 16px;
+}
+
+.iconRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconRight img {
+  width: 20px;
+  height: 16px;
+}
+
+.arrowBtn svg {
+  width: 20px;
+  height: 16px;
+  fill: var(--black);
+  stroke-width: 2px;
+}
+
+.sliderWindow {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto 205px auto;
+  overflow: visible;
+}
+
+.swiperCustom {
+  width: 100%;
+  height: 100%;
+  padding-bottom: 38px;
+}
+
+.serviceCard {
+  padding: 40px;
+  border-radius: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  box-sizing: border-box;
+  text-align: left;
+  background: #fff;
+  height: 100%;
+}
+
+.heroServices {
+  width: 100%;
+}
+
+.serviceIconWrapper {
+  width: 100%;
+  height: 280px;
+  margin-bottom: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 32px;
+  background: #181818;
+  box-sizing: border-box;
+  padding: 0;
+  background-image: url("/images/bg_services.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.serviceTitle {
+  font-family: var(--third-family, "Arial Black", Arial, sans-serif);
+  font-style: italic;
+  font-weight: 900;
+  font-size: 56px;
+  line-height: 100%;
+  text-transform: uppercase;
+  color: var(--black, #181818);
+  margin-bottom: 32px;
+}
+
+.serviceDescription {
+  font-family: var(--font-family, Arial, sans-serif);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 140%;
+  color: var(--gray, #888);
+  margin-bottom: 0;
+}
+
+.sliderNavWrapper {
+  display: flex;
+  padding: 8px;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  gap: 32px;
+  align-self: stretch;
+  border-radius: 16px;
+  background: #fff;
+  margin: 0 auto;
+}
+
+.arrowContainer .arrowBtn {
+  width: 85px;
+  height: 29px;
+  border-radius: 8px;
+  background: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dotsBlock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #e4e4e4;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.activeDot {
+  width: 8px;
+  height: 8px;
+  background: #000;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.sliderDotsRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.centerLine {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 1;
+  opacity: 0.18;
+}
+
+.sliderActiveDot {
+  width: 38px;
+  height: 6px;
+  border-radius: 8px;
+  background: #222;
+  display: inline-block;
+}
+
+.sliderDot {
+  width: 6px;
+  height: 6px;
+  z-index: 1;
+  background: #e4e4e4;
+  border-radius: 50%;
+  margin: 0;
+}
+.rightBtn {
+  color: var(--black);
+  cursor: pointer;
+  border: none;
+  border-radius: 62px;
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  min-height: 50px;
+  backdrop-filter: blur(20px);
+  background: var(--white);
+  color: var(--black);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.rightBtn svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.rightBtn:hover {
+  background: var(--black) !important;
+  color: var(--white) !important;
+}
+
+.rightBtn:active {
+  transform: scale(0.95);
+}
+
+/* .rightBtn:active {
+  border-radius: 62px;
+  width: 50px;
+  height: 50px;
+  backdrop-filter: blur(20px);
+  background: #8426d7 !important;
+  color: var(--white) !important;
+} */
+
+.leftBtn {
+  cursor: pointer;
+  border: none;
+  border-radius: 62px;
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  min-height: 50px;
+  backdrop-filter: blur(20px);
+  background: var(--white);
+  color: var(--black);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.leftBtn svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.leftBtn:hover {
+  background: var(--black) !important;
+  color: var(--white) !important;
+}
+
+.leftBtn:active {
+  transform: scale(0.95);
+}
+
+/* .leftBtn:active {
+  border-radius: 62px;
+  width: 50px;
+  height: 50px;
+  backdrop-filter: blur(20px);
+  background: #8426d7 !important;
+  color: var(--white) !important;
+} */
+
+.arrowBtn {
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  min-height: 50px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.arrowBtn svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .leftBtn {
+    width: mvw(50);
+    height: mvw(50);
+    border-radius: mvw(62);
+    svg {
+      width: mvw(20);
+      height: mvw(20);
+    }
+  }
+  .rightBtn {
+    width: mvw(50);
+    height: mvw(50);
+    border-radius: mvw(62);
+    svg {
+      width: mvw(20);
+      height: mvw(20);
+    }
+  }
+  .activeDot {
+    width: mvw(6);
+    height: mvw(6);
+    border-radius: mvw(10);
+  }
+  .dot {
+    width: mvw(6);
+    height: mvw(6);
+    border-radius: mvw(10);
+  }
+  .navContainer {
+    height: mvw(60);
+    border-radius: mvw(25);
+    gap: mvw(27);
+    display: flex;
+    justify-content: flex-start;
+    /* margin-left: mvw(16); */
+  }
+
+  /* .sliderNavOutside {
+    margin-left: mvw(16) !important;
+    justify-content: flex-start !important;
+  } */
+  .dotsBlock {
+    gap: mvw(8);
+  }
+}
