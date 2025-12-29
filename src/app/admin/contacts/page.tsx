@@ -320,9 +320,7 @@ export default function ContactsPage() {
   // Функція для отримання viber посилання для відображення
   const getViberLink = (locationInfo?: LocationInfo) => {
     if (!locationInfo) return "";
-    // Спочатку перевіряємо, чи є viberLink в даних
-    if (locationInfo.viberLink) return locationInfo.viberLink;
-    // Якщо ні, формуємо з viberPhone
+    // Формуємо посилання з viberPhone
     if (locationInfo.viberPhone)
       return formatViberLink(locationInfo.viberPhone);
     return "";
