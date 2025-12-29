@@ -8,10 +8,7 @@ export function middleware(request: NextRequest) {
     const response = NextResponse.next();
 
     // Додаємо CORS заголовки
-    response.headers.set(
-      "Access-Control-Allow-Origin",
-      "orthospaceabackendtwo-production.up.railway.app"
-    );
+    response.headers.set("Access-Control-Allow-Origin", BACKEND_URL);
     response.headers.set(
       "Access-Control-Allow-Methods",
       "GET, POST, PUT, DELETE, OPTIONS"
