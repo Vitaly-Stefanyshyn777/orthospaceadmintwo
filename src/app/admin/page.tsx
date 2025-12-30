@@ -3,18 +3,18 @@ import Link from "next/link";
 export default function AdminPage() {
   const features = [
     {
-      name: "До і Після",
-      href: "/admin/before-after",
-      description: "Завантаження фото до і після з автоматичним створенням пар",
-      icon: "🔄",
-      color: "blue",
-    },
-    {
       name: "Звичайна галерея",
       href: "/admin/gallery",
       description: "Завантаження фото в звичайну галерею",
       icon: "🖼️",
       color: "green",
+    },
+    {
+      name: "Наші Послуги",
+      href: "/admin/services",
+      description: "Управління категоріями та послугами клініки",
+      icon: "🦷",
+      color: "purple",
     },
   ];
 
@@ -30,7 +30,7 @@ export default function AdminPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {features.map((feature) => (
             <Link
               key={feature.name}
@@ -47,7 +47,9 @@ export default function AdminPage() {
                   className={`inline-flex items-center px-4 py-2 rounded-md text-sm font-medium ${
                     feature.color === "blue"
                       ? "bg-blue-100 text-blue-800 group-hover:bg-blue-200"
-                      : "bg-green-100 text-green-800 group-hover:bg-green-200"
+                      : feature.color === "green"
+                      ? "bg-green-100 text-green-800 group-hover:bg-green-200"
+                      : "bg-purple-100 text-purple-800 group-hover:bg-purple-200"
                   }`}
                 >
                   Перейти до {feature.name}
@@ -63,17 +65,6 @@ export default function AdminPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="text-lg font-medium text-blue-900 mb-2">
-                🔄 До і Після
-              </h3>
-              <ul className="text-blue-800 space-y-1">
-                <li>• Обов&apos;язково 3 фото &quot;До&quot;</li>
-                <li>• Обов&apos;язково 3 фото &quot;Після&quot;</li>
-                <li>• Система автоматично створить пари</li>
-                <li>• Використовуйте ID альбому типу BEFORE_AFTER</li>
-              </ul>
-            </div>
-            <div>
               <h3 className="text-lg font-medium text-green-900 mb-2">
                 🖼️ Звичайна галерея
               </h3>
@@ -84,6 +75,17 @@ export default function AdminPage() {
                 <li>
                   • Мітка автоматично встановлюється як &quot;general&quot;
                 </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-medium text-purple-900 mb-2">
+                🦷 Наші Послуги
+              </h3>
+              <ul className="text-purple-800 space-y-1">
+                <li>• Створюйте та редагуйте категорії послуг</li>
+                <li>• Додавайте окремі послуги з цінами</li>
+                <li>• Послуги можна активувати/деактивувати</li>
+                <li>• Послуги будуть активними за замовчуванням</li>
               </ul>
             </div>
           </div>

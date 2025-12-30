@@ -66,11 +66,6 @@ export default function AdminLayout({
       description: "Інформація про спеціалізацію та зображення",
     },
     {
-      name: "До і Після",
-      href: "/admin/before-after",
-      description: "Завантаження фото до і після",
-    },
-    {
       name: "Звичайна галерея",
       href: "/admin/gallery",
       description: "Завантаження фото в галерею",
@@ -122,9 +117,7 @@ export default function AdminLayout({
                 </button>
                 {/* Desktop nav */}
                 <div className="hidden md:ml-6 md:flex md:space-x-8">
-                  {navigation
-                    .filter((item) => item.name !== "До і Після")
-                    .map((item) => (
+                  {navigation.map((item) => (
                       <Link
                         key={item.name}
                         href={item.href}
@@ -190,9 +183,7 @@ export default function AdminLayout({
               </button>
             </div>
             <nav className="space-y-2">
-              {navigation
-                .filter((item) => item.name !== "До і Після")
-                .map((item) => (
+              {navigation.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
