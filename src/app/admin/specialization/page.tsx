@@ -224,7 +224,6 @@ export default function AdminSpecializationPage() {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("Фото завантажено:", result);
         await loadSpecialization(); // Оновлюємо дані після завантаження
         return result;
       } else {

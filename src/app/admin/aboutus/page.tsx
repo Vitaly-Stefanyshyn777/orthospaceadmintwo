@@ -216,7 +216,6 @@ export default function AdminAboutUsPage() {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("Фото завантажено:", result);
         await loadAboutUs(); // Оновлюємо дані після завантаження
         return result;
       } else {

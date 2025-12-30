@@ -211,7 +211,6 @@ export default function AdminHeroPage() {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("Фото завантажено:", result);
         await loadHero(); // Оновлюємо дані після завантаження
         return result;
       } else {

@@ -80,7 +80,6 @@ export default function BeforeAfterPage() {
     try {
       setLoadingPhotos(true);
       const token = localStorage.getItem("authToken");
-      console.log(
         "🔑 Токен з localStorage:",
         token ? "Є токен" : "Немає токену"
       );
@@ -88,7 +87,6 @@ export default function BeforeAfterPage() {
       // Використовуємо локальний API роут для отримання фото альбому "До і Після"
       const timestamp = Date.now();
       const url = `/api/v1/public/gallery/albums/before-after?t=${timestamp}`;
-      console.log("🔍 Запитуємо дані з URL:", url);
 
       const response = await fetch(url, {
         // Забороняємо кеш, щоб одразу бачити актуальні зміни після видалення/заміни
@@ -101,7 +99,6 @@ export default function BeforeAfterPage() {
       }
 
       const data = await response.json();
-      console.log("🔍 Дані з API після запиту:", {
         photos: data.photos?.length || 0,
         collections: data.collections?.length || 0,
         pairs: data.pairs?.length || 0,
@@ -147,7 +144,6 @@ export default function BeforeAfterPage() {
         });
       }
 
-      console.log(
         "📸 Встановлюємо завантажені фото (тільки з пар):",
         allPhotos.length,
         "фото",
@@ -158,7 +154,6 @@ export default function BeforeAfterPage() {
       setUploadedPhotos(allPhotos);
 
       // Зберігаємо колекції
-      console.log("🔍 Перевіряємо колекції з API:", {
         hasCollections: !!data.collections,
         collectionsLength: data.collections?.length || 0,
         collectionsType: typeof data.collections,
@@ -177,26 +172,21 @@ export default function BeforeAfterPage() {
           })
         );
         setCollections(formattedCollections);
-        console.log(
           "📁 Колекції:",
           formattedCollections.length,
           formattedCollections
         );
       } else {
         setCollections([]);
-        console.log("📁 Колекції: 0");
       }
 
       // Зберігаємо пари для подальшого рендерингу по колекціях
       if (data.pairs && Array.isArray(data.pairs)) {
-        console.log("🔗 Пари з API:", data.pairs.length, data.pairs);
         setPairs(data.pairs);
       } else {
         setPairs([]);
-        console.log("🔗 Пари: 0");
       }
 
-      console.log("✅ Стан оновлено!");
     } catch (err) {
       console.error("Помилка завантаження фото:", err);
     } finally {
@@ -240,7 +230,6 @@ export default function BeforeAfterPage() {
 
     const performPhotoReplacement = async (photo: Photo, file: File) => {
       try {
-        console.log("🔄 Замінюємо фото:", photo.title);
 
         const token = localStorage.getItem("authToken");
 
@@ -262,7 +251,6 @@ export default function BeforeAfterPage() {
         if (!pair) {
           // Якщо пара не знайдена, це означає що фото не входить до колекції
           // Видаляємо це фото зі списку і не створюємо нове
-          console.log(
             "⚠️ Пара не знайдена - фото не входить до колекції, видаляємо з відображення"
           );
 
@@ -276,7 +264,6 @@ export default function BeforeAfterPage() {
             });
 
             if (deleteResponse.ok) {
-              console.log(`🗑️ Фото ${photoId} видалено (не в парі)`);
             }
           } catch (deleteError) {
             console.warn("Не вдалося видалити фото:", deleteError);
@@ -349,7 +336,6 @@ export default function BeforeAfterPage() {
       );
       setUploadedPhotos([]);
       setLoadingPhotos(true);
-      console.log(
         `🗑️ Optimistic update: видаляємо колекцію ${collectionKey} зі стану`
       );
 
@@ -370,10 +356,8 @@ export default function BeforeAfterPage() {
       }
 
       const result = await deleteResponse.json();
-      console.log(`Колекція ${collectionKey} видалена:`, result);
 
       // Примусово оновлюємо список для синхронізації з сервером
-      console.log("🔄 Оновлюємо дані після видалення колекції...");
 
       // Очищаємо локальний стан перед оновленням
       setUploadedPhotos([]);
@@ -383,7 +367,6 @@ export default function BeforeAfterPage() {
       setLoadingPhotos(true);
 
       await fetchPhotos();
-      console.log("✅ Дані оновлено після видалення колекції");
       showSuccess(`Колекція ${collectionKey} успішно видалена!`);
     } catch (err) {
       console.error("Помилка видалення колекції:", err);
@@ -405,12 +388,10 @@ export default function BeforeAfterPage() {
 
   // Логування змін в uploadedPhotos
   useEffect(() => {
-    console.log("📊 uploadedPhotos змінився:", uploadedPhotos.length, "фото");
   }, [uploadedPhotos]);
 
   // Логування змін в collections
   useEffect(() => {
-    console.log(
       "📁 collections змінився:",
       collections.length,
       "колекцій",
@@ -450,7 +431,6 @@ export default function BeforeAfterPage() {
   const uploadPhoto = async (file: File, tag: "before" | "after") => {
     try {
       const authToken = localStorage.getItem("authToken");
-      console.log("Токен з localStorage:", authToken);
 
       if (!authToken) {
         showError("Потрібна авторизація!");
@@ -462,7 +442,6 @@ export default function BeforeAfterPage() {
       formData.append("albumId", albumId);
       formData.append("tag", tag);
 
-      console.log("Відправляємо запит з токеном:", `Bearer ${authToken}`);
 
       const response = await fetch("/api/v1/upload/photo", {
         method: "POST",
@@ -472,11 +451,9 @@ export default function BeforeAfterPage() {
         body: formData,
       });
 
-      console.log("Відповідь сервера:", response.status, response.statusText);
 
       if (response.ok) {
         const result = await response.json();
-        console.log("Фото завантажено:", result);
         return result;
       } else {
         const errorText = await response.text();
@@ -492,11 +469,9 @@ export default function BeforeAfterPage() {
   const uploadAllPhotos = async () => {
     setIsUploadingAll(true);
     setLoadingPhotos(true);
-    console.log("🚀 Початок завантаження всіх фото...");
     const allBeforeFiles = beforePhotos.filter((photo) => photo.file);
     const allAfterFiles = afterPhotos.filter((photo) => photo.file);
 
-    console.log("📁 Файли для завантаження:", {
       before: allBeforeFiles.length,
       after: allAfterFiles.length,
     });
@@ -507,11 +482,9 @@ export default function BeforeAfterPage() {
     }
 
     // Завантажуємо всі фото "До"
-    console.log("📤 Завантажуємо фото 'До'...");
     for (let i = 0; i < allBeforeFiles.length; i++) {
       const photo = allBeforeFiles[i];
       if (photo.file) {
-        console.log(
           `📤 Завантажуємо фото "До" ${i + 1}/${allBeforeFiles.length}`
         );
         // блокувати вибір файлів під час завантаження конкретного слота
@@ -542,11 +515,9 @@ export default function BeforeAfterPage() {
     }
 
     // Завантажуємо всі фото "Після"
-    console.log("📤 Завантажуємо фото 'Після'...");
     for (let i = 0; i < allAfterFiles.length; i++) {
       const photo = allAfterFiles[i];
       if (photo.file) {
-        console.log(
           `📤 Завантажуємо фото "Після" ${i + 1}/${allAfterFiles.length}`
         );
         setAfterPhotos((prev) =>
@@ -576,10 +547,8 @@ export default function BeforeAfterPage() {
     }
 
     // Оновлюємо список фото після завантаження всіх фото
-    console.log("🔄 Оновлюємо список після завантаження всіх фото...");
     setLoadingPhotos(true);
     await fetchPhotos();
-    console.log("✅ Список фото оновлено після завантаження всіх фото!");
     // Готуємо слоти для наступної колекції: очищаємо локальні стани слотів
     setBeforePhotos([
       { file: null, preview: null, uploading: false, uploaded: false },
@@ -807,7 +776,6 @@ export default function BeforeAfterPage() {
                     (p) => p.collectionId === collection.id
                   );
 
-                  console.log(`🔍 Колекція ${collection.key}:`, {
                     collectionId: collection.id,
                     pairsInCollection: pairsInCollection.length,
                     allPairs: pairs.length,

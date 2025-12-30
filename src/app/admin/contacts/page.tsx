@@ -91,9 +91,6 @@ export default function ContactsPage() {
       setLoading(true);
       const token = localStorage.getItem("authToken");
 
-      console.log("🚀 Завантаження контактних даних...");
-      console.log("📡 URL:", `${BACKEND_URL}/api/v1/public/contacts`);
-      console.log("🔑 Token:", token ? "Присутній" : "Відсутній");
 
       // Спробуємо різні варіанти URL для отримання даних
       const possibleUrls = [
@@ -109,7 +106,6 @@ export default function ContactsPage() {
 
       for (const url of possibleUrls) {
         try {
-          console.log(`🔍 Перевірка: ${url}`);
           response = await fetch(url, {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -119,15 +115,10 @@ export default function ContactsPage() {
           if (response.ok) {
             data = await response.json();
             workingUrl = url;
-            console.log(`✅ Знайдено робочий маршрут: ${url}`);
-            console.log("📨 Статус відповіді:", response.status);
-            console.log("✅ Отримано контактні дані:", data);
             break;
           } else {
-            console.log(`❌ ${url} повернув ${response.status}`);
           }
         } catch (err) {
-          console.log(`❌ Помилка з ${url}:`, err);
         }
       }
 
@@ -158,7 +149,6 @@ export default function ContactsPage() {
         setLocationForm(locationData);
       }
     } catch (err) {
-      console.error("❌ Помилка завантаження контактів:", err);
       showError(
         `Помилка завантаження: ${
           err instanceof Error ? err.message : "Невідома помилка"
@@ -183,8 +173,6 @@ export default function ContactsPage() {
       setSaving(true);
       const token = localStorage.getItem("authToken");
 
-      console.log("💾 Збереження контактної інформації:", contactForm);
-      console.log("📡 URL:", `${BACKEND_URL}/api/v1/contacts/contact-info`);
 
       // Використовуємо окремий маршрут для контактної інформації
       const response = await fetch(
@@ -199,7 +187,6 @@ export default function ContactsPage() {
         }
       );
 
-      console.log("📨 Статус відповіді:", response.status);
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -209,12 +196,10 @@ export default function ContactsPage() {
         );
       }
 
-      console.log("✅ Контактна інформація збережена успішно");
       await fetchContacts();
       setEditingContactInfo(false);
       showSuccess("Контактна інформація оновлена успішно!");
     } catch (err) {
-      console.error("❌ Помилка збереження контактної інформації:", err);
       showError(err instanceof Error ? err.message : "Помилка збереження");
     } finally {
       setSaving(false);
@@ -239,9 +224,6 @@ export default function ContactsPage() {
       // Видаляємо viberPhone з даних для відправки
       delete dataToSend.viberPhone;
 
-      console.log("💾 Збереження інформації про місцезнаходження:", dataToSend);
-      console.log("📡 URL:", `${BACKEND_URL}/api/v1/contacts/location-info`);
-      console.log("📦 Надсилаємо дані:", JSON.stringify(dataToSend, null, 2));
 
       // Використовуємо окремий маршрут для інформації про місцезнаходження
       const response = await fetch(
@@ -256,16 +238,8 @@ export default function ContactsPage() {
         }
       );
 
-      console.log("📨 Статус відповіді:", response.status);
 
       if (!response.ok) {
-        try {
-          const errorData = await response.json();
-          console.error("❌ Деталі помилки:", errorData);
-        } catch {
-          const errorText = await response.text();
-          console.error("❌ Текст помилки:", errorText);
-        }
       }
 
       if (!response.ok) {
@@ -276,15 +250,10 @@ export default function ContactsPage() {
         );
       }
 
-      console.log("✅ Інформація про місцезнаходження збережена успішно");
       await fetchContacts();
       setEditingLocationInfo(false);
       showSuccess("Інформація про місцезнаходження оновлена успішно!");
     } catch (err) {
-      console.error(
-        "❌ Помилка збереження інформації про місцезнаходження:",
-        err
-      );
       showError(err instanceof Error ? err.message : "Помилка збереження");
     } finally {
       setSaving(false);
@@ -334,9 +303,6 @@ export default function ContactsPage() {
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto"></div>
             <p className="mt-4 text-gray-600">
               Завантаження контактних даних...
-            </p>
-            <p className="mt-2 text-sm text-gray-500">
-              Перевіряйте консоль браузера для деталей
             </p>
           </div>
         </div>
@@ -1190,12 +1156,6 @@ export default function ContactsPage() {
               конвертовано в viber:// посилання
             </li>
             <li>• Всі поля обов'язкові для коректного відображення на сайті</li>
-            <li>• Дані автоматично синхронізуються з публічним API</li>
-            <li>
-              • 📡 Використовуються окремі маршрути для контактної інформації та
-              місцезнаходження
-            </li>
-            <li>• 🔍 Перевіряйте консоль браузера для деталей API запитів</li>
           </ul>
         </div>
       </div>

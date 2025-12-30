@@ -306,7 +306,6 @@ export default function ServicesPage() {
       setLoading(true);
       const token = localStorage.getItem("authToken");
 
-      console.log("🚀 Завантаження категорій послуг...");
       const response = await fetch(`${BACKEND_URL}/api/v1/public/services`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -318,7 +317,6 @@ export default function ServicesPage() {
       }
 
       const data = await response.json();
-      console.log("✅ Отримано категорії:", data);
 
       // Гарантуємо, що кожна категорія має масив services
       const processedData = Array.isArray(data)
@@ -1419,17 +1417,6 @@ export default function ServicesPage() {
                 <li>• Тип послуги: Tooth, Surgery, etc.</li>
                 <li>• Ціна в форматі: 500.00</li>
                 <li>• Послуги можна деактивувати</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-medium text-blue-800 mb-2">
-                📝 Тестові дані:
-              </h4>
-              <ul className="text-blue-700 text-sm space-y-1">
-                <li>• Натисніть "📝 Заповнити тестовими даними"</li>
-                <li>• Створить 7 категорій з усіма послугами</li>
-                <li>• Включає всі надані вами дані</li>
-                <li>• Послуги будуть активними за замовчуванням</li>
               </ul>
             </div>
           </div>

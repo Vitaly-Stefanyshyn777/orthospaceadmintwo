@@ -194,7 +194,6 @@ export default function GalleryPage() {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("Фото завантажено:", result);
         return result;
       } else {
         console.error("Помилка завантаження:", response.statusText);
