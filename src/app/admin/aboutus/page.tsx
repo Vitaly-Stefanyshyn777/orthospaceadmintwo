@@ -10,7 +10,6 @@ import { BACKEND_URL } from "@/lib/config";
 interface AboutUsData {
   id?: number;
   title: string;
-  subtitle: string;
   description: string;
   image?: string;
   imagePublicId?: string;
@@ -29,7 +28,6 @@ export default function AdminAboutUsPage() {
 
   const [aboutUs, setAboutUs] = useState<AboutUsData>({
     title: "",
-    subtitle: "",
     description: "",
     image: "",
   });
@@ -59,7 +57,6 @@ export default function AdminAboutUsPage() {
         if (responseText.trim() === "") {
           setAboutUs({
             title: "",
-            subtitle: "",
             description: "",
             image: "",
           });
@@ -68,7 +65,6 @@ export default function AdminAboutUsPage() {
           const data = JSON.parse(responseText);
           setAboutUs({
             title: data.title || "",
-            subtitle: data.subtitle || "",
             description: data.description || "",
             image: data.image || "",
           });
@@ -77,7 +73,6 @@ export default function AdminAboutUsPage() {
       } else if (res.status === 404) {
         setAboutUs({
           title: "",
-          subtitle: "",
           description: "",
           image: "",
         });
@@ -108,7 +103,6 @@ export default function AdminAboutUsPage() {
 
       const body: any = {
         title: aboutUs.title,
-        subtitle: aboutUs.subtitle,
         description: aboutUs.description,
       };
 
@@ -158,7 +152,7 @@ export default function AdminAboutUsPage() {
 
       if (!res.ok) throw new Error("Не вдалося видалити фото");
 
-      setAboutUs({ title: "", subtitle: "", description: "", image: "" });
+      setAboutUs({ title: "", description: "", image: "" });
       setAboutUsExists(false);
       showSuccess("Фото видалено успішно!");
     } catch (err) {
@@ -274,20 +268,6 @@ export default function AdminAboutUsPage() {
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Підзаголовок
-              </label>
-              <input
-                type="text"
-                value={aboutUs.subtitle}
-                onChange={(e) =>
-                  setAboutUs((a) => ({ ...a, subtitle: e.target.value }))
-                }
-                className="w-full border rounded-md px-3 py-2 text-black"
-                placeholder="Введіть підзаголовок секції About Us"
-              />
-            </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">

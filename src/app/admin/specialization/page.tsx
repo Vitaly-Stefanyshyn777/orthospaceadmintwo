@@ -10,7 +10,6 @@ import { BACKEND_URL } from "@/lib/config";
 interface SpecializationData {
   id?: number;
   title: string;
-  subtitle: string;
   description: string;
   image?: string;
   imagePublicId?: string;
@@ -29,7 +28,6 @@ export default function AdminSpecializationPage() {
 
   const [specialization, setSpecialization] = useState<SpecializationData>({
     title: "",
-    subtitle: "",
     description: "",
     image: "",
   });
@@ -59,7 +57,6 @@ export default function AdminSpecializationPage() {
         if (responseText.trim() === "") {
           setSpecialization({
             title: "",
-            subtitle: "",
             description: "",
             image: "",
           });
@@ -68,7 +65,6 @@ export default function AdminSpecializationPage() {
           const data = JSON.parse(responseText);
           setSpecialization({
             title: data.title || "",
-            subtitle: data.subtitle || "",
             description: data.description || "",
             image: data.image || "",
           });
@@ -77,7 +73,6 @@ export default function AdminSpecializationPage() {
       } else if (res.status === 404) {
         setSpecialization({
           title: "",
-          subtitle: "",
           description: "",
           image: "",
         });
@@ -108,7 +103,6 @@ export default function AdminSpecializationPage() {
 
       const body: any = {
         title: specialization.title,
-        subtitle: specialization.subtitle,
         description: specialization.description,
       };
 
@@ -160,7 +154,6 @@ export default function AdminSpecializationPage() {
 
       setSpecialization({
         title: "",
-        subtitle: "",
         description: "",
         image: "",
       });
@@ -282,20 +275,6 @@ export default function AdminSpecializationPage() {
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Підзаголовок
-              </label>
-              <input
-                type="text"
-                value={specialization.subtitle}
-                onChange={(e) =>
-                  setSpecialization((s) => ({ ...s, subtitle: e.target.value }))
-                }
-                className="w-full border rounded-md px-3 py-2 text-black"
-                placeholder="Введіть підзаголовок секції спеціалізації"
-              />
-            </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
